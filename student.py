@@ -73,6 +73,8 @@ class Student:
                 self.info.registrated[self.student_name]["loaned_books"][
                     book
                 ] = self.info.collection[book]
+
+                # records the loan date
                 self.info.registrated[self.student_name]["loaned_books"][book][
                     "loan_date"
                 ] = datetime.strptime(date, "%Y-%m-%d")
@@ -94,16 +96,16 @@ class Student:
 
             if book in self.info.registrated[self.student_name]["loaned_books"]:
 
+                # start date of the loan
                 loan_date = self.info.registrated[self.student_name]["loaned_books"][
                     book
-                ][
-                    "loan_date"
-                ]  # start date of the loan
-                return_date = datetime.strptime(date, "%Y-%m-%d")  # return date
+                ]["loan_date"]
 
-                diff = (
-                    return_date - loan_date
-                ).days  # difference between start and return date
+                # return date
+                return_date = datetime.strptime(date, "%Y-%m-%d")
+
+                # difference between start and return date
+                diff = (return_date - loan_date).days
 
                 # remove the loan_date element from the loaned book
                 self.info.registrated[self.student_name]["loaned_books"][book].pop(
