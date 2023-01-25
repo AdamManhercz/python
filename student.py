@@ -26,16 +26,20 @@ from library import Library
 class Student:
     """Creates the actions of the students"""
 
-    name: str
+    student_name: str
     year: int
     info: Library
-    loaned_books: dict = field(default_factory=dict)
     balance: int = 0
 
     def __str__(self) -> str:
         """Displays the actual information about the student"""
 
-        return f"Name: {self.name}\nClass: {self.year}\nBalance: ${self.balance}\nLoaned books: {self.loaned_books}"
+        return "Name: {}\nClass: {}\nBalance: ${}\nLoaned books: {}".format(
+            self.student_name,
+            self.year,
+            self.balance,
+            self.info.registrated[self.student_name]["loaned_books"],
+        )
 
     def deposit_money(self, money: int):
         """Student deposit on the account"""
@@ -49,9 +53,9 @@ class Student:
         """Argument "books" type is list if the loan request contains several books """
 
         # checks the name in the registration system and the student balance
-        if not self.name in self.info.registrated or (self.balance < 0):
+        if not self.student_name in self.info.registrated or (self.balance < 0):
 
-            return f"{self.name} is not registrated in the system yet or your balance is negative. Please contact with the reception"
+            return f"{self.student_name} is not registrated in the system yet or your balance is negative. Please contact with the reception"
 
         # checks the number of the loan request
         elif len(books) > 10:
@@ -65,16 +69,11 @@ class Student:
 
                 loaned.append(book)  # add the available book to the list
 
-                # register the loan details(book and date) the student side
-                self.loaned_books[book] = self.info.collection[book]
-                self.loaned_books[book]["loan_date"] = datetime.strptime(
-                    date, "%Y-%m-%d"
-                )
                 # register the loan details(book and date) the library side
-                self.info.registrated[self.name]["loaned_books"][
+                self.info.registrated[self.student_name]["loaned_books"][
                     book
                 ] = self.info.collection[book]
-                self.info.registrated[self.name]["loaned_books"][book][
+                self.info.registrated[self.student_name]["loaned_books"][book][
                     "loan_date"
                 ] = datetime.strptime(date, "%Y-%m-%d")
 
@@ -93,9 +92,11 @@ class Student:
 
         for book in books:
 
-            if book in self.info.registrated[self.name]["loaned_books"]:
+            if book in self.info.registrated[self.student_name]["loaned_books"]:
 
-                loan_date = self.info.registrated[self.name]["loaned_books"][book][
+                loan_date = self.info.registrated[self.student_name]["loaned_books"][
+                    book
+                ][
                     "loan_date"
                 ]  # start date of the loan
                 return_date = datetime.strptime(date, "%Y-%m-%d")  # return date
@@ -105,15 +106,17 @@ class Student:
                 ).days  # difference between start and return date
 
                 # remove the loan_date element from the loaned book
-                self.info.registrated[self.name]["loaned_books"][book].pop("loan_date")
+                self.info.registrated[self.student_name]["loaned_books"][book].pop(
+                    "loan_date"
+                )
 
                 # book get back to the library
                 self.info.add_book(
-                    book, self.info.registrated[self.name]["loaned_books"][book]
+                    book, self.info.registrated[self.student_name]["loaned_books"][book]
                 )
 
                 # loaned book and its loan date is getting deleted from the system
-                self.info.registrated[self.name]["loaned_books"].pop(book)
+                self.info.registrated[self.student_name]["loaned_books"].pop(book)
 
                 # if the loaning time exceeds the 30 day rule
                 if diff > 30:

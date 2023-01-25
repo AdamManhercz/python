@@ -18,7 +18,6 @@ Operations:
 """
 
 from dataclasses import dataclass, field
-from student import Student
 
 
 @dataclass
@@ -28,22 +27,22 @@ class Library:
     collection: dict = field(default_factory=dict)
     registrated: dict = field(default_factory=dict)
 
-    def registrate(self, student: Student):
+    def registrate(self, student: object):
         """Student registration"""
 
         # Creates the dictionary about the student data for the library
         # Dict -> Name: Class, Balance, Loan informations
         student = student.__dict__
 
-        self.registrated[student["name"]] = {
+        self.registrated[student["student_name"]] = {
             "class": student["year"],
             "balance": student["balance"],
-            "loaned_books": student["loaned_books"],
+            "loaned_books": {},
         }
 
         print(
             "{} from class of {} is registrated!\nYour library balance: ${}".format(
-                student["name"], student["year"], student["balance"]
+                student["student_name"], student["year"], student["balance"]
             )
         )
 
