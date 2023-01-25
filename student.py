@@ -48,10 +48,12 @@ class Student:
         """Loaning process"""
         """Argument "books" type is list if the loan request contains several books """
 
+        # checks the name in the registration system and the student balance
         if not self.name in self.info.registrated or (self.balance < 0):
 
             return f"{self.name} is not registrated in the system yet or your balance is negative. Please contact with the reception"
 
+        # checks the number of the loan request
         elif len(books) > 10:
 
             return f"Maximum number of loan request is 10!\n Your request number: {len(books)}"
@@ -129,16 +131,22 @@ class Student:
 
 if __name__ == "__main__":
 
-    library = Library()
+    library = Library()  # initiate library instance
 
+    # add book to the library
     library.add_book("Harry Potter", {"release": 2001, "genre": "fantasy"})
 
+    # initiate a student Tom Jerry
     tom = Student("Tom Jerry", 2023, library)
 
+    # registrate Tom
     library.registrate(tom)
 
+    # Tom loans book, library removes tha loaned book from collection
     tom.loan_book(["Harry Potter"], "2023-01-24")
 
+    # Tom returns the book, if there is a charge he will be informed
     tom.return_book(["Harry Potter"], "2023-03-24")
 
+    # Tom deposits money on his account
     tom.deposit_money(59)

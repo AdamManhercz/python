@@ -18,6 +18,7 @@ Operations:
 """
 
 from dataclasses import dataclass, field
+from student import Student
 
 
 @dataclass
@@ -27,7 +28,7 @@ class Library:
     collection: dict = field(default_factory=dict)
     registrated: dict = field(default_factory=dict)
 
-    def registrate(self, student: object):
+    def registrate(self, student: Student):
         """Student registration"""
 
         # Creates the dictionary about the student data for the library
