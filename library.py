@@ -30,7 +30,7 @@ class Library:
     def registrate(self, student: object):
         """Student registration"""
 
-        # Creates the dictionary about the student data for the library
+        # Creates the dictionary about the student's data for the library
         # Dict -> Name: Class, Balance, Loan informations
         student = student.__dict__
 
@@ -40,8 +40,9 @@ class Library:
             "loaned_books": {},
         }
 
+        print("========================")
         print(
-            "{} from class of {} is registrated!\nYour library balance: ${}".format(
+            "{} from class of {} is registrated!\nYour library balance: €{}".format(
                 student["student_name"], student["year"], student["balance"]
             )
         )
@@ -54,4 +55,4 @@ class Library:
     def remove_book(self, book: str) -> None:
         """Remove books from the library"""
 
-        del self.collection[book]
+        self.collection.pop(book)
