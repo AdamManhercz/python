@@ -25,7 +25,7 @@ class Library:
     """Creates the operations of the library"""
 
     collection: dict = field(default_factory=dict)
-    registrated: dict = field(default_factory=dict)
+    data: dict = field(default_factory=dict)
 
     def registrate(self, student: object):
         """Student registration"""
@@ -34,7 +34,7 @@ class Library:
         # Dict -> Name: Class, Balance, Loan informations
         student = student.__dict__
 
-        self.registrated[student["student_name"]] = {
+        self.data[student["student_name"]] = {
             "class": student["year"],
             "balance": student["balance"],
             "loaned_books": {},
