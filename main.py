@@ -47,6 +47,12 @@ if __name__ == "__main__":
     # Librarian reviews the return process
     librarian.process_return_request(tom, tom_returned_books, tom_return_date)
 
+    # Carl requests book loan with negative account balance
+    carl_books, carl_loan_date = carl.loan_book()
+
+    librarian.process_loan_request(carl, carl_books, carl_loan_date)
+
+    # Danny requests book loan as unregistrated
     danny_books, danny_loan_date = danny.loan_book()
 
     librarian.process_loan_request(danny, danny_books, danny_loan_date)
