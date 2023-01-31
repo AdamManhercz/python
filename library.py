@@ -28,16 +28,16 @@ class Library:
     data: dict = field(default_factory=dict)
 
     def registrate(self, student: object):
-        """Student registration"""
+        """Registrates student"""
 
         # Creates the dictionary about the student's data for the library
         # Dict -> Name: Class, Balance, Loan informations
         student = student.__dict__
 
         self.data[student["student_name"]] = {
-            "class": student["year"],
+            "year": student["year"],
             "balance": student["balance"],
-            "loaned_books": {},
+            "loaned_books": dict(),
         }
 
         print("========================")
@@ -46,13 +46,18 @@ class Library:
                 student["student_name"], student["year"], student["balance"]
             )
         )
+        print("========================")
 
     def add_book(self, book: str, info: dict) -> None:
-        """Add books to the library"""
+        """Adds books to the library"""
 
         self.collection[book] = info
 
+        print(f"The book {book} has been successfully added to the library!")
+
     def remove_book(self, book: str) -> None:
-        """Remove books from the library"""
+        """Removes books from the library"""
 
         self.collection.pop(book)
+
+        print(f"The book {book} has been removed from the library!")
