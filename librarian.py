@@ -97,6 +97,9 @@ class Librarian(Library):
             student = student.student_input()
             self.registrate(student)
 
+            books, loan_date = student.loan_book()
+            self.process_loan_request(student, books, loan_date)
+
         except ValueError:
             deposit_question = input(
                 "Your account balance is negative! Would you like to deposit money on your account? Y/N: "

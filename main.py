@@ -14,7 +14,7 @@ if __name__ == "__main__":
     carl = Student("Carl Johnson", 2022, -20)
     danny = Student("Danny DeVito", 2023)
 
-    # add book to the library
+    # add books to the library
     librarian.add_book(
         "Harry Potter", {"author": "J.K. Rowling", "release": 1997, "genre": "fantasy"}
     )
@@ -27,7 +27,7 @@ if __name__ == "__main__":
         {"author": "J.R.R. Tolkien", "release": 1997, "genre": "fantasy"},
     )
 
-    # registrate Tom
+    # registrate students
     librarian.registrate(tom)
     librarian.registrate(sue)
     librarian.registrate(carl)
@@ -46,3 +46,7 @@ if __name__ == "__main__":
 
     # Librarian reviews the return process
     librarian.process_return_request(tom, tom_returned_books, tom_return_date)
+
+    danny_books, danny_loan_date = danny.loan_book()
+
+    librarian.process_loan_request(danny, danny_books, danny_loan_date)

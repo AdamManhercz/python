@@ -9,8 +9,8 @@ class Student:
     year: int
     balance: int = 0
 
-    @staticmethod
-    def student_input():
+    @classmethod
+    def student_input(cls):
         """Enable on-fly registration"""
 
         return Student(
