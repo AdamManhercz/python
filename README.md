@@ -1,6 +1,6 @@
 # Library demo - OOP practice
 
-The repository contains the files of the three separate classes of Library, Librarian, Student, a Jupyter notebook file and tha main.py file.
+The repository contains the files of the three classes of Library, its subclass Librarian and Student class, ultimately the main.py file for execution.
 
 ## Library class - library.py
 
