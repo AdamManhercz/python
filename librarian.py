@@ -70,6 +70,7 @@ class Librarian(Library):
 
             book_info = self.collection[book]
 
+            # book gets recorded as a loaned book at the student
             self.data[student.student_name]["loaned_books"].update({book: book_info})
 
             ## records the loan date
@@ -100,6 +101,7 @@ class Librarian(Library):
             self.process_loan_request(student, books, loan_date)
 
         except ValueError:
+
             deposit_question = input(
                 "Your account balance is negative! Would you like to deposit money on your account? Y/N: "
             )
@@ -109,13 +111,16 @@ class Librarian(Library):
                     "Your account balance is negative! Would you like to deposit money on your account? Y/N: "
                 )
 
+            # student adds money to the account
             money = int(input("How much money would you like to deposit?"))
             student.deposit_money(money)
 
+            # loan process can be restarted
             books, loan_date = student.loan_book()
             self.process_loan_request(student, books, loan_date)
 
         except Exception:
+
             print(
                 "Please edit your loan request!\nMaybe a book is not available or length of request exceeds the contraint(10)!"
             )
