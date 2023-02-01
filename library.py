@@ -39,11 +39,8 @@ class Library:
         }
 
         print("========================")
-        print(
-            "{} from class of {} is registrated!\nYour library balance: €{}".format(
-                student["student_name"], student["year"], student["balance"]
-            )
-        )
+        print("{} is registrated!".format(student["student_name"]))
+        print("Your library balance: €{}".format(student["balance"]))
         print("========================")
 
     def add_book(self, book: str, info: dict) -> None:

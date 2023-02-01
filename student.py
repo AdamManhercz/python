@@ -29,9 +29,8 @@ class Student:
         self.balance += money
 
         print("========================")
-        print(
-            f"{self.student_name} has succesfully deposited €{money}.\n{self.student_name}'s balance: €{self.balance}"
-        )
+        print(f"{self.student_name} has succesfully deposited €{money}.")
+        print(f"{self.student_name}'s balance: €{self.balance}")
 
     def loan_book(self):
         """Gathers data on the books that have been lent out as well as the date that the loan would start."""
@@ -46,9 +45,7 @@ class Student:
             book = input("Please, enter the title of the book: ")
             book_list.append(book)
 
-        loan_date = input(
-            "Please, enter the date where the loan would start:(Year-month-day)"
-        )
+        loan_date = input("Please, enter the startin date of the loan:(Year-month-day)")
         return book_list, loan_date
 
     def return_book(self):
@@ -66,8 +63,6 @@ class Student:
             book = input("Please, enter the title of the book: ")
             book_list.append(book)
 
-        return_date = input(
-            "Please, enter the day you returns your book:(Year-month-day)"
-        )
+        return_date = input("Please, enter the date of return:(Year-month-day)")
 
         return book_list, return_date

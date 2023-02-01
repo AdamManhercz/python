@@ -43,7 +43,6 @@ class Librarian(Library):
             raise Exception
 
         for book in books:
-
             if not book in self.collection:
                 raise Exception
 
@@ -121,9 +120,9 @@ class Librarian(Library):
 
         except Exception:
 
-            print(
-                "Please edit your loan request!\nMaybe a book is not available or length of request exceeds the contraint(10)!"
-            )
+            print("Please edit your loan request!")
+            print("The book is not available or you already have more 10 loaned books!")
+
             books, loan_date = student.loan_book()
             self.process_loan_request(student, books, loan_date)
 
@@ -172,14 +171,13 @@ class Librarian(Library):
 
         # if the loaning time exceeds the 30 day rule
         if diff > 30:
-
             # the actual fine for the late return
             charge = diff - 30
 
             student.balance -= charge
 
             print("========================")
-            print(
-                f"{student.student_name}, your balance will be charged €21 as a result of the 30 day return restriction being exceeded.!\
-                        \nYour account balance is €{student.balance}."
-            )
+            print(f"Student: {student.student_name}")
+            print(f"Charge: €{charge}")
+            print("Issue: 30 day return restriction being exceeded!")
+            print(f"Your account balance is €{student.balance}.")
