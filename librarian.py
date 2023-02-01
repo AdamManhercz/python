@@ -37,10 +37,10 @@ class Librarian(Library):
         if not student.student_name in self.data:
             raise KeyError
 
-    def check_book_list(self, books: list):
-        """Checks each book and the length of the requested book list"""
+    def check_book(self, student: Student, books: list):
+        """Checks each book and the amount of books that student has loaned"""
 
-        if len(books) > 10:
+        if len(self.data[student.student_name]["loaned_books"]) > 10:
             raise Exception
 
         for book in books:
@@ -61,7 +61,7 @@ class Librarian(Library):
 
         self.check_balance(student)
 
-        self.check_book_list(books)
+        self.check_book(student, books)
 
     def process_book(self, student: Student, books: list[str], loan_date: str):
         """Carries out the loaning if all the requiremnets are fulfilled"""

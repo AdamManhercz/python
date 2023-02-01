@@ -1,11 +1,8 @@
-from library import Library
 from librarian import Librarian
 from student import Student
 
 
 if __name__ == "__main__":
-
-    library = Library()  # initiate library instance
 
     librarian = Librarian()
 
@@ -23,8 +20,8 @@ if __name__ == "__main__":
         {"author": "Carmine Gallo", "release": 2016, "genre": "social science"},
     )
     librarian.add_book(
-        "Lord of the rings",
-        {"author": "J.R.R. Tolkien", "release": 1997, "genre": "fantasy"},
+        "Lord of the Rings",
+        {"author": "J.R.R. Tolkien", "release": 1954, "genre": "fantasy"},
     )
 
     # registrate students

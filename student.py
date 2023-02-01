@@ -11,7 +11,7 @@ class Student:
 
     @classmethod
     def student_input(cls):
-        """Enable on-fly registration"""
+        """Enables on-fly registration"""
 
         return Student(
             input("Please, enter your name: "),
@@ -24,7 +24,7 @@ class Student:
         )
 
     def deposit_money(self, money: int):
-        """Student deposit on the account"""
+        """Student deposits money on the account"""
 
         self.balance += money
 
