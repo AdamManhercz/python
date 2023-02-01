@@ -1,5 +1,7 @@
 """Library demo"""
 
+from dataclasses import dataclass, field
+
 """ 
 Info:
 - Book registry
@@ -16,8 +18,6 @@ Operations:
 - student returns book
 - student deposit money on account
 """
-
-from dataclasses import dataclass, field
 
 
 @dataclass

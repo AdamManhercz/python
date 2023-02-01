@@ -109,13 +109,12 @@ class Librarian(Library):
                 deposit_question = input(
                     "Your account balance is negative! Would you like to deposit money on your account? Y/N: "
                 )
-            else:
-                money = int(input("How much money would you like to deposit?"))
 
-                student.deposit_money(money)
+            money = int(input("How much money would you like to deposit?"))
+            student.deposit_money(money)
 
-                books, loan_date = student.loan_book()
-                self.process_loan_request(student, books, loan_date)
+            books, loan_date = student.loan_book()
+            self.process_loan_request(student, books, loan_date)
 
         except Exception:
             print(
