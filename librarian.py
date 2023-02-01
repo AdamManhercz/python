@@ -1,9 +1,8 @@
 """Librarian"""
 
-
+from datetime import datetime
 from library import Library
 from student import Student
-from datetime import datetime
 
 
 class Librarian(Library):
