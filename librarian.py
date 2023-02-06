@@ -5,8 +5,12 @@ from library import Library
 from student import Student
 
 
-class Librarian(Library):
+class Librarian:
     """Deals with operations between students and library"""
+
+    def __init__(self, library: Library) -> None:
+
+        self.library = library
 
     def print_student(self, student: Student):
         """Prints the chosen, registrated student's data"""
@@ -16,34 +20,34 @@ class Librarian(Library):
                 student.student_name,
                 student.year,
                 student.balance,
-                self.data[student.student_name]["loaned_books"],
+                self.library.data[student.student_name]["loaned_books"],
             )
         )
 
     def print_collection(self):
         """Prints the collection of the library"""
 
-        print(self.collection)
+        print(self.library.collection)
 
     def print_registrated(self):
         """Prints the registrated students"""
 
-        print(self.data)
+        print(self.library.data)
 
     def check_account(self, student: Student):
         """Checks if the student is registrated"""
 
-        if not student.student_name in self.data:
+        if not student.student_name in self.library.data:
             raise KeyError
 
     def check_book(self, student: Student, books: list):
         """Checks each book and the amount of books that student has loaned"""
 
-        if len(self.data[student.student_name]["loaned_books"]) > 10:
+        if len(self.library.data[student.student_name]["loaned_books"]) > 10:
             raise Exception
 
         for book in books:
-            if not book in self.collection:
+            if not book in self.library.collection:
                 raise Exception
 
     def check_balance(self, student: Student):
@@ -67,20 +71,22 @@ class Librarian(Library):
         loaned = []
         for book in books:
 
-            book_info = self.collection[book]
+            book_info = self.library.collection[book]
 
             # book gets recorded as a loaned book at the student
-            self.data[student.student_name]["loaned_books"].update({book: book_info})
+            self.library.data[student.student_name]["loaned_books"].update(
+                {book: book_info}
+            )
 
             ## records the loan date
-            self.data[student.student_name]["loaned_books"].setdefault(
+            self.library.data[student.student_name]["loaned_books"].setdefault(
                 book, {}
             ).setdefault("loan_date", datetime.strptime(loan_date, "%Y-%m-%d"))
 
             loaned.append(book)
 
             # remove the book from the library
-            self.remove_book(book)
+            self.library.remove_book(book)
 
         print(f"{student.student_name} has successfully loaned:{loaned}")
 
@@ -94,7 +100,7 @@ class Librarian(Library):
 
             print("You are not registrated!")
             student = student.student_input()
-            self.registrate(student)
+            self.library.registrate(student)
 
             books, loan_date = student.loan_book()
             self.process_loan_request(student, books, loan_date)
@@ -135,21 +141,21 @@ class Librarian(Library):
         returned_books = []
         for book in books:
 
-            if book in self.data[student.student_name]["loaned_books"]:
+            if book in self.library.data[student.student_name]["loaned_books"]:
 
                 self.check_dates(student, book, return_date)
 
                 # remove the loan_date element from the loaned book
-                self.data[student.student_name]["loaned_books"][book].pop("loan_date")
-
-                # book gets back to the library
-                self.add_book(
-                    book,
-                    self.data[student.student_name]["loaned_books"][book],
+                self.library.data[student.student_name]["loaned_books"][book].pop(
+                    "loan_date"
                 )
-
+                # book gets back to the library
+                self.library.add_book(
+                    book,
+                    self.library.data[student.student_name]["loaned_books"][book],
+                )
                 # loaned book and its loan date is getting deleted from the system
-                self.data[student.student_name]["loaned_books"].pop(book)
+                self.library.data[student.student_name]["loaned_books"].pop(book)
 
                 returned_books.append(book)
 
@@ -163,7 +169,9 @@ class Librarian(Library):
     def check_dates(self, student: Student, book: str, return_date: str):
         """Determines if there is a late return penalty"""
 
-        loan_date = self.data[student.student_name]["loaned_books"][book]["loan_date"]
+        loan_date = self.library.data[student.student_name]["loaned_books"][book][
+            "loan_date"
+        ]
 
         return_date = datetime.strptime(return_date, "%Y-%m-%d")
 
