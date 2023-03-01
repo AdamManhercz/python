@@ -1,26 +1,19 @@
-from dataclasses import dataclass
-
-
-@dataclass
 class Student:
     """Creates the actions of a student"""
 
-    student_name: str
-    year: int
-    balance: int = 0
+    def __init__(self, student_name: str, year: int, balance: int = 0) -> None:
 
-    @classmethod
-    def student_input(cls):
+        self.student_name = student_name
+        self.year = year
+        self.balance = balance
+
+    @staticmethod
+    def student_input():
         """Enables on-fly registration"""
 
         return Student(
             input("Please, enter your name: "),
             int(input("Which year did you begin attending university: ")),
-            int(
-                input(
-                    "Would you wish to add money to the balance on your account?(Optional!)"
-                )
-            ),
         )
 
     def deposit_money(self, money: int):
@@ -29,7 +22,7 @@ class Student:
         self.balance += money
 
         print("========================")
-        print(f"{self.student_name} has succesfully deposited €{money}.")
+        print(f"Succesfully deposited: €{money}.")
         print(f"{self.student_name}'s balance: €{self.balance}")
 
     def loan_book(self):
@@ -45,8 +38,7 @@ class Student:
             book = input("Please, enter the title of the book: ")
             book_list.append(book)
 
-        loan_date = input("Please, enter the startin date of the loan:(Year-month-day)")
-        return book_list, loan_date
+        return book_list
 
     def return_book(self):
         """Gathers the data on the books that will be returned and the date of the return"""
@@ -63,6 +55,4 @@ class Student:
             book = input("Please, enter the title of the book: ")
             book_list.append(book)
 
-        return_date = input("Please, enter the date of return:(Year-month-day)")
-
-        return book_list, return_date
+        return book_list
