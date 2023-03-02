@@ -92,12 +92,12 @@ class Library:
             book_info = self.collection[book]
             # book gets recorded as a loaned book at the student
             self.data[student.student_name]["loaned_books"].update({book: book_info})
+
             ## records the loan date
-            self.data[student.student_name]["loaned_books"].setdefault(
-                book, {}
-            ).setdefault(
-                "loan_date", loan_date
-            )  # külön szedni
+            self.data[student.student_name]["loaned_books"].setdefault(book, {})
+            book_date_section = self.data[student.student_name]["loaned_books"][book]
+            book_date_section.setdefault("loan_date", loan_date)
+
             loaned.append(book)
             # remove the book from the library
             self.remove_book(book)
