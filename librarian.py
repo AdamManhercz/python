@@ -2,7 +2,6 @@
 
 from library import Library
 from student import Student
-from datetime import datetime
 
 
 class Librarian:
@@ -32,7 +31,7 @@ class Librarian:
                 student.student_name,
                 student.year,
                 student.balance,
-                self.library.data[student.student_name]["loaned_books"],
+                self.library.accounts[student.student_name]["loaned_books"],
             )
         )
 
@@ -52,4 +51,4 @@ class Librarian:
     def print_registrated(self):
         """Prints the registrated students"""
 
-        print(self.library.data)
+        print(self.library.accounts)

@@ -6,6 +6,7 @@ class Student:
         self.student_name = student_name
         self.year = year
         self.balance = balance
+        
 
     @staticmethod
     def student_input():
@@ -25,7 +26,7 @@ class Student:
         print(f"Succesfully deposited: €{money}.")
         print(f"{self.student_name}'s balance: €{self.balance}")
 
-    def loan_book(self):
+    def loan_book(self, books:list):
         """Gathers data on the books that have been lent out as well as the date that the loan would start."""
 
         booksnum = int(
