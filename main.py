@@ -1,50 +1,63 @@
-"""Execution"""
-
-from library import Library
-from librarian import Librarian
 from student import Student
-
+from librarian import Librarian
+from library import Library
+from book import Book
+from datetime import datetime
 
 if __name__ == "__main__":
 
+    # initiate Library and Librarian instance
     library = Library()
-
     librarian = Librarian(library)
 
+    # initiate Students
     tom = Student("Tom Jones", 2022)
-    sue = Student("Sue Thomas", 2021, 50)
-    carl = Student("Carl Johnson", 2022, -20)
-    danny = Student("Danny DeVito", 2023)
+    lucy = Student("Lucy Liu", 2023)
+    sue = Student("Sue Thomas", 2021)
+    carl = Student("Carl Johnson", 2022)
 
-    # add books to the library
-    librarian.add_book(
-        "Harry Potter", {"author": "J.K. Rowling", "release": 1997, "genre": "fantasy"}
-    )
-    librarian.add_book(
-        "Storytelling",
-        {"author": "Carmine Gallo", "release": 2016, "genre": "social science"},
-    )
-    librarian.add_book(
-        "Lord of the Rings",
-        {"author": "J.R.R. Tolkien", "release": 1954, "genre": "fantasy"},
-    )
+    # initiate Book intances
+    book1 = Book("Harry Potter", "JK Rowling", 3)
+    book2 = Book("Vuk", "Fekete István", 2)
+    book3 = Book("Zen", "Én", 1)
 
-    # registrate students
+    # add the book to the library's collection
+    librarian.add_book(book1)
+    librarian.add_book(book2)
+    librarian.add_book(book3)
+
+    # registrate Students
     librarian.registrate(tom)
+    librarian.registrate(lucy)
     librarian.registrate(sue)
-    librarian.registrate(carl)
 
-    # Tom's loan request
-    tom_books = tom.loan_book()
+    # show Student attributes
+    print(tom)
+    print(carl)
 
-    # Librarian reviews the loan request
-    librarian.process_loan_request(tom, tom_books)
+    # loan requests
+    tom.loan_book(book1)
+    tom.loan_book(book2)
+    carl.loan_book(book2)
+    lucy.loan_book(book3)
+    sue.loan_book(book3)
 
-    # Librarian prints Tom's data
+    # take a look at the changes after loans
     librarian.print_student(tom)
+    librarian.print_collection()
 
-    # Tom brought back the loaned items(s)
-    tom_returned_books = tom.return_book()
+    # return loaned book
+    tom.return_book(book1)
+    lucy.return_book(book3, datetime(2023,5,28))
 
-    # Librarian reviews the return process
-    librarian.process_return_request(tom, tom_returned_books)
+    # loan request with negative balance
+    lucy.loan_book(book3)
+
+    # check the collection regarding book volumes
+    librarian.print_collection()
+    
+    # deposit money on the account balance
+    tom.deposit_money(20)
+    print(tom)
+
+

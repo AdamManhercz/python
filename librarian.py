@@ -1,7 +1,14 @@
-"""Librarian"""
+"""
+Librarian
+
+Executes operations attached to the Library.
+
+"""
 
 from library import Library
 from student import Student
+from book import Book
+from account import Account
 
 
 class Librarian:
@@ -12,36 +19,41 @@ class Librarian:
         self.library = library
 
     def registrate(self, student: Student):
+        """Registrates student"""
 
-        self.library.registrate(student)
+        student.account = Account(student.student_name, student.year, True)
+        self.library.accounts.append(student.account)
 
-    def add_book(self, book: str, info: dict):
+        print("========================")
+        print("{} is registrated!".format(student.student_name))
+        print("========================")
+        
+    def add_book(self, book: Book) -> None:
+        """Adds books to the library"""
 
-        self.library.add_book(book, info)
+        self.library.collection.append(book)
+        print(f"The book {book.name} has been successfully added to the library!")
 
-    def remove_book(self, book: str):
+    def remove_book(self, book: Book) -> None:
+        """Removes books from the library"""
 
-        self.library.remove_book(book)
+        self.library.collection.remove(book)
+        print(f"The book {book} has been removed from the library!")
 
     def print_student(self, student: Student):
         """Prints the chosen, registrated student's data"""
 
-        print(
-            "Name: {}\nClass: {}\nBalance: ${}\nLoaned books: {}".format(
-                student.student_name,
-                student.year,
-                student.balance,
-                self.library.accounts[student.student_name]["loaned_books"],
+        if student.account != None:
+            print(
+                "Name: {}\nClass: {}\nBalance: ${}\nLoaned books: {}".format(
+                    student.student_name,
+                    student.year,
+                    student.account.balance,
+                    student.account.loaned_books,
+                )
             )
-        )
-
-    def process_loan_request(self, student: Student, books: list):
-
-        self.library.process_loan_request(student, books)
-
-    def process_return_request(self, student: Student, books: list):
-
-        self.library.process_return_request(student, books)
+        else:
+            print(f"{student.student_name} is not registrated yet.")
 
     def print_collection(self):
         """Prints the collection of the library"""
