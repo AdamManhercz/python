@@ -8,6 +8,14 @@ Contains the most essential data of the library:
 
 - data about the registrated students and book collection
 
+## Book class - book.py
+
+Comprises the basic informations about a book:
+
+- title
+- author
+- available copy number(volume)
+
 ## Librarian - librarian.py
 
 Enables and carries out all possible interactions or actions between a student and the library, including:
