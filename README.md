@@ -20,15 +20,15 @@ Comprises the basic informations about a book:
 
 Enables and carries out all possible interactions or actions between a student and the library, including:
 
-- executes student registration
+- makes student registration
 - creates student account
-- management of student and library data in the database of the library.
+- management of students' and library's data in the database of the library.
 
 ## Student - student.py
 
 Summarizes any demands or actions that a student might have towards the library:
 
-- provides private information for registration
+- provides private informations for registration
 - requests book loan
 - requests book return
 - deposits money on account balance
@@ -38,12 +38,12 @@ Summarizes any demands or actions that a student might have towards the library:
 Created during the registrations process:
 
 - contains student data
-- balance
+- student's balance
 - loaned books
 
 ## Custom Exceptions - error.py
 
-Contain the customed Exceptions for library rules, such as:
+Contains the customed Exceptions for library rules, such as:
 
 - negative balance
 - requested book not available
