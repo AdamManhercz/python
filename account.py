@@ -13,7 +13,7 @@ import datetime
 
 
 @dataclass
-class Account():
+class Account:
 
     student_name: str
     year: int
@@ -30,15 +30,15 @@ class Account():
     def check_book_availability(self, book: Book):
 
         if book.volume == 0:
-           raise AvailabilityError
+            raise AvailabilityError
 
     def check_loaned_books_volume(self):
-        """Ckeck the number of loaned books"""  
+        """Ckeck the number of loaned books"""
 
         if len(self.loaned_books) > 10:
             raise LoanVolumeError
-        
-    def verify_loan_request(self, book:Book):
+
+    def verify_loan_request(self, book: Book):
 
         self.check_balance()
         self.check_book_availability(book)
@@ -49,11 +49,12 @@ class Account():
 
         if book.name in self.loaned_books:
             late = (return_date - self.loaned_books[book.name]).days
-            charge = late - 30  
+            charge = late - 30
             if charge > 0:
                 self.balance -= charge
                 print(f"{self.student_name}: You missed the 30 days loan limit.")
-                print(f"{self.student_name}: Your balance has been charged with €{charge}.")
+                print(
+                    f"{self.student_name}: Your balance has been charged with €{charge}."
+                )
         else:
             print(f"The {book.name} has not been loaned out yet")
-          

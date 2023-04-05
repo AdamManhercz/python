@@ -18,13 +18,9 @@ Operations:
 from dataclasses import dataclass, field
 
 
-
 @dataclass
 class Library:
     """Creates the operations of the library"""
 
     collection: list = field(default_factory=list)
     accounts: list = field(default_factory=list)
-
-
-    

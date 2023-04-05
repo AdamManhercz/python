@@ -27,7 +27,7 @@ class Librarian:
         print("========================")
         print("{} is registrated!".format(student.student_name))
         print("========================")
-        
+
     def add_book(self, book: Book) -> None:
         """Adds books to the library"""
 

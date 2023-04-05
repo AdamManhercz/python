@@ -48,16 +48,14 @@ if __name__ == "__main__":
 
     # return loaned book
     tom.return_book(book1)
-    lucy.return_book(book3, datetime(2023,5,28))
+    lucy.return_book(book3, datetime(2023, 5, 28))
 
     # loan request with negative balance
     lucy.loan_book(book3)
 
     # check the collection regarding book volumes
     librarian.print_collection()
-    
+
     # deposit money on the account balance
     tom.deposit_money(20)
     print(tom)
-
-

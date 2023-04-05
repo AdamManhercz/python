@@ -2,9 +2,10 @@
 
 from dataclasses import dataclass
 
-@dataclass
-class Book():
 
-    name:str
-    author:str
-    volume:int
+@dataclass
+class Book:
+
+    name: str
+    author: str
+    volume: int
