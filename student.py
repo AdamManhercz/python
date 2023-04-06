@@ -6,7 +6,6 @@ for a student's registration, borrowing, and returning of books from the library
 """
 
 from datetime import datetime
-from typing import Optional
 from book import Book
 from account import Account
 from error import AvailabilityError, BalanceError, LoanVolumeError
