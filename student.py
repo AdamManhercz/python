@@ -6,6 +6,8 @@ for a student's registration, borrowing, and returning of books from the library
 """
 
 from datetime import datetime
+from typing import Optional
+from account import Account
 from book import Book
 from error import AvailabilityError, BalanceError, LoanVolumeError
 
@@ -13,7 +15,9 @@ from error import AvailabilityError, BalanceError, LoanVolumeError
 class Student:
     """Creates the actions of a student"""
 
-    def __init__(self, student_name: str, year: int, account=None) -> None:
+    def __init__(
+        self, student_name: str, year: int, account: Optional[Account] = None
+    ) -> None:
 
         self.student_name = student_name
         self.year = year
