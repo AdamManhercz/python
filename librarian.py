@@ -5,7 +5,6 @@ Executes operations attached to the Library.
 
 """
 
-from typing import List
 from library import Library
 from student import Student
 from book import Book
