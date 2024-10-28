@@ -43,7 +43,7 @@ if __name__ == "__main__":
     sue.loan_book(book3)
 
     # take a look at the changes after loans
-    librarian.print_student(tom)
+    librarian.check_student(tom)
     librarian.print_collection()
 
     # return loaned book
@@ -57,5 +57,5 @@ if __name__ == "__main__":
     librarian.print_collection()
 
     # deposit money on the account balance
-    tom.deposit_money(20)
+    #tom.deposit_money(20)
     print(tom)

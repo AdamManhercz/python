@@ -19,13 +19,23 @@ class Student:
         self, student_name: str, year: int, account: Optional[Account] = None
     ) -> None:
 
-        self.student_name = student_name
+        self.name = student_name
         self.year = year
         self.account = account
 
     def __str__(self) -> str:
 
-        return f"{self.student_name}, {self.year}, {self.account}"
+        if self.account != None:
+            return f"{self.name}, {self.year}, {self.account}"
+        return f"{self.name}, {self.year}, has no library account"
+    
+    @property
+    def student_info(self):
+        """Print current library-related student info"""
+        print(f"Name: {self.name}")
+        print(f"Class: {self.year}")
+        print(f"Balance: ${self.account.balance}")
+        print(f"Loaned books: {self.account.loaned_books}")
 
     def deposit_money(self, money: int):
         """Student deposits money on the account"""
@@ -41,20 +51,20 @@ class Student:
             try:
                 self.account.verify_loan_request(book)
                 book.volume -= 1
-                self.account.loaned_books.update({book.name: loan_date})
+                self.account.loaned_books.update({book.title: loan_date})
                 print(
-                    f"{self.student_name} request: {book.name} has successfully loaned."
+                    f"{self.name} request: {book.title} has successfully loaned."
                 )
             except AvailabilityError:
-                print(f"{self.student_name} request: The book is not available.")
+                print(f"{self.name} request: The book is not available.")
             except BalanceError:
-                print(f"{self.student_name} request: Your balance is negative.")
+                print(f"{self.name} request: Your balance is negative.")
             except LoanVolumeError:
                 print(
-                    f"{self.student_name} request: You have reached maximum quantity of loaned books(10)."
+                    f"{self.name} request: You have reached maximum quantity of loaned books(10)."
                 )
         else:
-            print(f"{self.student_name} request: You are not registrated yet.")
+            print(f"{self.name} request: You are not registrated yet.")
 
     def return_book(self, book: Book, return_date=datetime.now()):
         """Handles the book return"""
@@ -62,5 +72,5 @@ class Student:
         self.account.check_return_date(book, return_date)
 
         book.volume += 1
-        self.account.loaned_books.pop(book.name)
-        print(f"{self.student_name} request: {book.name} has successfully returned.")
+        self.account.loaned_books.pop(book.title)
+        print(f"{self.name} request: {book.title} has successfully returned.")

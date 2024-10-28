@@ -47,8 +47,8 @@ class Account:
     def check_return_date(self, book: Book, return_date: datetime):
         """Determines whether a late return charge is applicable"""
 
-        if book.name in self.loaned_books:
-            late = (return_date - self.loaned_books[book.name]).days
+        if book.title in self.loaned_books:
+            late = (return_date - self.loaned_books[book.title]).days
             charge = late - 30
             if charge > 0:
                 self.balance -= charge
@@ -57,4 +57,4 @@ class Account:
                     f"{self.student_name}: Your balance has been charged with €{charge}."
                 )
         else:
-            print(f"The {book.name} has not been loaned out yet")
+            print(f"The {book.title} has not been loaned out yet")
