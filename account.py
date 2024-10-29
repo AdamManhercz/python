@@ -4,8 +4,6 @@ Contains the essential registration the about the Student:
 the name, the balance, the loaned books of the Student, 
 as well as the year the Student attended at the university.
 """
-
-
 from dataclasses import dataclass, field
 from book import Book
 from error import AvailabilityError, BalanceError, LoanVolumeError
@@ -17,7 +15,7 @@ class Account:
 
     student_name: str
     year: int
-    account_status: bool
+    book_collection: list
     balance: int = 0
     loaned_books: dict = field(default_factory=dict)
 
@@ -26,10 +24,12 @@ class Account:
 
         if self.balance < 0:
             raise BalanceError
+        
+    def get_book(self, title: str) -> Book:
+        return next((book for book in self.book_collection if title == book.title), None)
 
-    def check_book_availability(self, book: Book):
-
-        if book.volume == 0:
+    def check_book_availability(self, book: Book) -> None:
+        if not book or book.volume == 0:
             raise AvailabilityError
 
     def check_loaned_books_volume(self):
@@ -38,17 +38,17 @@ class Account:
         if len(self.loaned_books) > 10:
             raise LoanVolumeError
 
-    def verify_loan_request(self, book: Book):
-
+    def verify_loan_request(self, title: str) -> Book:
+        book = self.get_book(title)
         self.check_balance()
-        self.check_book_availability(book)
         self.check_loaned_books_volume()
+        self.check_book_availability(book)
+        return book
 
-    def check_return_date(self, book: Book, return_date: datetime):
+    def check_return_date(self, title: str, return_date: datetime) -> bool:
         """Determines whether a late return charge is applicable"""
-
-        if book.title in self.loaned_books:
-            late = (return_date - self.loaned_books[book.title]).days
+        if title in self.loaned_books:
+            late = (return_date - self.loaned_books[title]).days
             charge = late - 30
             if charge > 0:
                 self.balance -= charge
@@ -56,5 +56,7 @@ class Account:
                 print(
                     f"{self.student_name}: Your balance has been charged with €{charge}."
                 )
+            return True
         else:
-            print(f"The {book.title} has not been loaned out yet")
+            print(f"The {title} has not been loaned out yet")
+            return False
