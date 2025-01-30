@@ -8,7 +8,6 @@ for a student's registration, borrowing, and returning of books from the library
 from datetime import datetime
 from typing import Optional
 from account import Account
-from book import Book
 from error import AvailabilityError, BalanceError, LoanVolumeError
 
 
@@ -30,47 +29,40 @@ class Student:
         return f"{self.name}, {self.year}, has no library account"
     
     @property
-    def student_info(self):
+    def student_info(self) -> None:
         """Print current library-related student info"""
         print(f"Name: {self.name}")
         print(f"Class: {self.year}")
         print(f"Balance: ${self.account.balance}")
         print(f"Loaned books: {self.account.loaned_books}")
 
-    def deposit_money(self, money: int):
-        """Student deposits money on the account"""
-
+    def deposit_money(self, money: int) -> None:
         self.account.balance += money
         print("========================")
         print(f"Succesfully deposited: €{money}.")
 
-    def loan_book(self, book: Book, loan_date=datetime.now()):
+    def loan_book(self, title: str, loan_date=datetime.now()) -> None:
         """Controlls the loan process"""
-
         if self.account != None:
             try:
-                self.account.verify_loan_request(book)
+                book = self.account.verify_loan_request(title)
                 book.volume -= 1
-                self.account.loaned_books.update({book.title: loan_date})
-                print(
-                    f"{self.name} request: {book.title} has successfully loaned."
-                )
+                self.account.loaned_books.update({title: loan_date})
+                print(f"{self.name}: {book.title} has successfully loaned.")
             except AvailabilityError:
-                print(f"{self.name} request: The book is not available.")
+                print(f"{self.name}: The book is not available.")
             except BalanceError:
-                print(f"{self.name} request: Your balance is negative.")
+                print(f"{self.name}: Your balance is negative.")
             except LoanVolumeError:
-                print(
-                    f"{self.name} request: You have reached maximum quantity of loaned books(10)."
-                )
+                print(f"{self.name}: Maximum quantity of loaned books exceeded(10).")
         else:
-            print(f"{self.name} request: You are not registrated yet.")
+            print(f"{self.name} - You are not registrated yet.")
 
-    def return_book(self, book: Book, return_date=datetime.now()):
+    def return_book(self, title: str, return_date=datetime.now()) -> None:
         """Handles the book return"""
-
-        self.account.check_return_date(book, return_date)
-
-        book.volume += 1
-        self.account.loaned_books.pop(book.title)
-        print(f"{self.name} request: {book.title} has successfully returned.")
+        check = self.account.check_return_date(title, return_date)
+        if check:
+            book = self.account.get_book(title)
+            book.volume += 1
+            self.account.loaned_books.pop(title)
+            print(f"{self.name} request: {title} has successfully returned.")

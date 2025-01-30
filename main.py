@@ -1,13 +1,13 @@
 from student import Student
 from librarian import Librarian
-from library import Library
+from library import OnlineLibrary
 from book import Book
 from datetime import datetime
 
 if __name__ == "__main__":
 
     # initiate Library and Librarian instance
-    library = Library()
+    library = OnlineLibrary()
     librarian = Librarian(library)
 
     # initiate Students
@@ -36,26 +36,28 @@ if __name__ == "__main__":
     print(carl)
 
     # loan requests
-    tom.loan_book(book1)
-    tom.loan_book(book2)
-    carl.loan_book(book2)
-    lucy.loan_book(book3)
-    sue.loan_book(book3)
+    tom.loan_book("Harry Potter")
+    tom.loan_book("Vuk")
+    carl.loan_book("Vuk")
+    lucy.loan_book("Zen")
+    sue.loan_book("Zen")
 
     # take a look at the changes after loans
     librarian.check_student(tom)
     librarian.print_collection()
 
     # return loaned book
-    tom.return_book(book1)
-    lucy.return_book(book3, datetime(2023, 5, 28))
+    tom.return_book("Harry Potter")
+    lucy.return_book("Zen", datetime(2025, 5, 28))
+
+    print(lucy)
 
     # loan request with negative balance
-    lucy.loan_book(book3)
+    lucy.loan_book("Zen")
 
     # check the collection regarding book volumes
-    librarian.print_collection()
+    #librarian.print_collection()
 
     # deposit money on the account balance
     #tom.deposit_money(20)
-    print(tom)
+    #print(tom)

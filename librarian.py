@@ -5,7 +5,7 @@ Executes operations attached to the Library.
 
 """
 
-from library import Library
+from library import OnlineLibrary
 from student import Student
 from book import Book
 from account import Account
@@ -14,13 +14,13 @@ from account import Account
 class Librarian:
     """Deals with operations between students and library"""
 
-    def __init__(self, library: Library) -> None:
+    def __init__(self, library: OnlineLibrary) -> None:
         self.library = library
 
     def registrate(self, student: Student):
         """Registrates student"""
 
-        student.account = Account(student.name, student.year, True)
+        student.account = Account(student.name, student.year, self.library.collection)
         self.library.accounts.append(student.account)
         
         print("========================")

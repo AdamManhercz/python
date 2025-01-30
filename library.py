@@ -19,7 +19,7 @@ from dataclasses import dataclass, field
 
 
 @dataclass
-class Library:
+class OnlineLibrary:
     """Creates the operations of the library"""
 
     collection: list = field(default_factory=list)
